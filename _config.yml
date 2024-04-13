@@ -2,63 +2,53 @@ url: https://reenyhuang.github.io/
 baseurl: /alzheimers/
 
 # Site settings
-title: Awesome Title
-email: your-email@domain.com
-description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
+title: MemoryMate
+email: ywreenyhuang@gmail.com
+description: "MemoryMate is a comprehensive program designed to provide memory support for the elderly, particularly those with a family history of Alzheimer's disease or those currently diagnosed with it. Our program allows users to record voice memos throughout the day, which are then used to generate memory quizzes. This not only helps users keep track of their daily activities but also serves as a tool for early detection of Alzheimer's disease through data analysis."
 
 
 # Team names, titles and social links
 people:
-- name: Kay Garland
+- name: Sneha Thomas
   pic: 1
-  position: Lead Designer
+  position: Freshman majoring in Computer Science
   social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: stack-overflow
-      url: #
+    - title: Github
+      url: https://github.com/snehathomas4427
+    - title: LinkedIn
+      url: https://www.linkedin.com/in/sneha-thomas-23457b214/
 
-- name: Larry Parker
+- name: Audrey Pan
   pic: 2
-  position: Lead Marketer
+  position: Sophomore majoring in Computer Science
   social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: linkedin
-      url: #
+    - title: Github
+      url: https://github.com/paudrey26
+    - title: LinkedIn
+      url: www.linkedin.com/in/audreypan09
 
-- name: Diana Petersen
+- name: Reeny Huang
   pic: 3
-  position: Lead Developer
+  position: Sophomore majoring in Mathematics and Interdisicplinary Computing - Economics
   social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: google-plus
-      url: #
+    - title: Github
+      url: https://github.com/reenyhuang
+    - title: LinkedIn
+      url: https://www.linkedin.com/in/yuwen-reeny-huang/
+      
+- name: Lauren D'Souza
+  pic: 3
+  position: Sophomore majoring in Computer Science and Mathematics
+  social:
+    - title: Github
+      url: https://github.com/lauren-dsouza
+    - title: LinkedIn
+      url: https://www.linkedin.com/in/lauren-d-souza-98149b21b/
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
-  - title: twitter
-    url: http://twitter.com/jekyllrb
-  - title: facebook
-    url:
-  - title: stack-overflow
-    url: http://stackoverflow.com/questions/tagged/jekyll
-  - title: bitbucket 
-    url: http://bitbucket.org/jekyll
   - title: github
-    url: http://github.com/jekyll
-
-# Postal address (add as many lines as necessary)
-address:
-  - line: 3481 Melrose Place
-  - line: Beverly Hills, CA 90210
+    url: https://github.com/reenyhuang/alzheimers
 
 # Build settings
 markdown: kramdown
