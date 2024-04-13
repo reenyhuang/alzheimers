@@ -13,7 +13,7 @@ people:
   pic: 1
   position: Freshman majoring in Computer Science
   social:
-    - title: Github
+    - title: github
       url: https://github.com/snehathomas4427
     - title: LinkedIn
       url: https://www.linkedin.com/in/sneha-thomas-23457b214/
@@ -22,7 +22,7 @@ people:
   pic: 2
   position: Sophomore majoring in Computer Science
   social:
-    - title: Github
+    - title: github
       url: https://github.com/paudrey26
     - title: LinkedIn
       url: www.linkedin.com/in/audreypan09
@@ -31,7 +31,7 @@ people:
   pic: 3
   position: Sophomore majoring in Interdisciplinary Computing - Economics
   social:
-    - title: Github
+    - title: github
       url: https://github.com/reenyhuang
     - title: LinkedIn
       url: https://www.linkedin.com/in/yuwen-reeny-huang/
@@ -40,7 +40,7 @@ people:
   pic: 3
   position: Sophomore majoring in Computer Science
   social:
-    - title: Github
+    - title: github
       url: https://github.com/lauren-dsouza
     - title: LinkedIn
       url: https://www.linkedin.com/in/lauren-d-souza-98149b21b/
