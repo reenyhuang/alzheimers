@@ -29,7 +29,7 @@ people:
 
 - name: Reeny Huang
   pic: 3
-  position: Sophomore majoring in Mathematics and IC - Economics
+  position: Sophomore majoring in IC - Economics
   social:
     - title: Github
       url: https://github.com/reenyhuang
@@ -38,7 +38,7 @@ people:
       
 - name: Lauren D'Souza
   pic: 3
-  position: Sophomore majoring in Computer Science and Mathematics
+  position: Sophomore majoring in Computer Science
   social:
     - title: Github
       url: https://github.com/lauren-dsouza
