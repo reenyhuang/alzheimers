@@ -435,6 +435,11 @@ section h3.section-subheading {
     font-style: italic;
 }
 
+#contactForm {
+    margin: 0 auto;
+    text-align: center;
+}
+
 #portfolio * {
     z-index: 2;
 }
