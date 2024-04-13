@@ -1,29 +1,74 @@
 <!-- Portfolio Grid Section -->
-    <section id="portfolio" class="bg-light-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Portfolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-            </div>
-            <div class="row">
-            {% for post in site.posts %}
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal{{ post.modal-id }}" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/{{ post.thumbnail }}" class="img-responsive img-centered" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>{{ post.title }}</h4>
-                        <p class="text-muted">{{ post.subtitle }}</p>
-                    </div>
-                </div>
-            {% endfor %}
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Record a Memory</h2>
+                <button id="recordButton" class="btn btn-primary">Start Recording</button>
+                <button id="saveButton" class="btn btn-success" style="display:none;">Save Recording</button>
+                <h3 class="section-subheading text-muted">Record a short voice memo about your day! It can include anything that happened today that you might want to remember. For example, what time did you eat lunch? Where did you go today? Who did you meet?<br> In the future, we would like to add functionality that generates a quiz based on the recorded voice memos. Then, when a user has consistently been getting questions wrong, it can serve as an indication that their memory is deteriorating.</h3>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<audio controls id="audioPlayback" style="display:none;"></audio>
+
+<script>
+    let mediaRecorder;
+    let chunks = [];
+    const recordButton = document.getElementById('recordButton');
+    const saveButton = document.getElementById('saveButton');
+    const audioPlayback = document.getElementById('audioPlayback');
+
+    recordButton.addEventListener('click', toggleRecording);
+    saveButton.addEventListener('click', saveRecording);
+
+    async function toggleRecording() {
+        if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+            startRecording();
+        } else if (mediaRecorder.state === 'recording') {
+            stopRecording();
+        }
+    }
+
+    async function startRecording() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.addEventListener('dataavailable', event => {
+                chunks.push(event.data);
+            });
+            mediaRecorder.addEventListener('stop', () => {
+                const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+                const audioURL = URL.createObjectURL(blob);
+                audioPlayback.src = audioURL;
+                audioPlayback.style.display = 'block';
+                saveButton.style.display = 'inline-block';
+            });
+            mediaRecorder.start();
+            recordButton.textContent = 'Stop Recording';
+        } catch (error) {
+            console.error('Error starting recording:', error);
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            recordButton.textContent = 'Start Recording';
+        }
+    }
+
+    function saveRecording() {
+        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'recording.ogg';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+</script>
