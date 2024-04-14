@@ -15,29 +15,29 @@
 </section>
 
 <script>
-    let userLocation = null; // Variable to store the user's current location
-    let userMarker = null; // Variable to store the user's marker
-    let circle = null; // Variable to store the reference to the circle
-    let drawingManager = null; // Variable to store the DrawingManager instance
+    let userLocation = null; // store the user's current location
+    let userMarker = null; //store the user's marker
+    let circle = null; // store the reference to the circle
+    let drawingManager = null; //store the DrawingManager instance
     
     function initMap() {
         const mapOptions = {
-            zoom: 20,
+            zoom: 20, // how much the screen is zoomed in when first opened
         };
     
-        // Create the map
-        const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        // create the map
+        const map = new google.maps.Map(document.getElementById("map"), mapOptions); //map is made in the html ele with same id
     
-        // Get user's geolocation
-        navigator.geolocation.getCurrentPosition(
+        // get user's geolocation
+        navigator.geolocation.getCurrentPosition( //gets curr loc
             (position) => {
-                const { latitude, longitude } = position.coords;
-                userLocation = { lat: latitude, lng: longitude }; // Store the user's initial location
+                const { latitude, longitude } = position.coords; //cordinates are equal to the lat and lng
+                userLocation = { lat: latitude, lng: longitude }; // store the user's initial location
     
-                // Set user's location as the center of the map
+                // set user's location as the center of the map
                 map.setCenter(userLocation);
     
-                // Initialize DrawingManager
+                // initialize DrawingManager
                 drawingManager = new google.maps.drawing.DrawingManager({
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
                     drawingControl: true,
