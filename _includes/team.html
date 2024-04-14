@@ -10,13 +10,13 @@
             {% for member in site.people %}
             <div class="col-sm-3"> <!-- Adjusted column size -->
                 <div class="team-member">
-                    <img src="img/team/{{ member.pic }}.jpg" class="img-responsive img-circle" alt="">
+                    <img src="img/team/{{ member.pic }}.jpg" class="img-responsive img-circle" alt=""> <!--Adds images for each member for the about me-->
                     <h4>{{ member.name }}</h4>
                     <p class="text-muted">{{ member.position }}</p>
                     <ul class="list-inline social-buttons">
                         {% for network in member.social %}
                         <li>
-                            <a href="{{ network.url }}">
+                            <a href="{{ network.url }}"> <!-- links our social media (github and linkedin)-->
                                 <i class="fa fa-{{ network.title }}"></i>
                             </a>
                         </li>
