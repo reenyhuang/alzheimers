@@ -116,25 +116,8 @@
     }
 
     document.getElementById('uber').addEventListener('click', function() {
-            // Make a request to Uber Ride Request API
-            // Replace the placeholder values with your actual Uber Ride Request API credentials and parameters
-            var clientId = 'YOUR_CLIENT_ID';
-            var serverToken = 'YOUR_SERVER_TOKEN';
-            var pickupLat = userLocation.lat;
-            var pickupLng = userLocation.lng;
-            var dropoffLat = 'DROPOFF_LATITUDE';
-            var dropoffLng = 'DROPOFF_LONGITUDE';
-
-            // Construct the URL for Uber's Ride Request API
-            var url = 'https://m.uber.com/ul/?client_id=' + clientId +
-                      '&action=setPickup&pickup[latitude]=' + pickupLat +
-                      '&pickup[longitude]=' + pickupLng +
-                      '&dropoff[latitude]=' + dropoffLat +
-                      '&dropoff[longitude]=' + dropoffLng +
-                      '&product_id='; // You can specify a specific product ID if needed
-
-            // Open the URL in a new tab/window
-            window.open(url);
+        // Open the URL in a new tab/window
+        window.open(url);
     });
 </script>
 
