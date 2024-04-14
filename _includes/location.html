@@ -15,69 +15,106 @@
 </section>
 
 <script>
+    let userLocation = null; // Variable to store the user's current location
+    let userMarker = null; // Variable to store the user's marker
+    let circle = null; // Variable to store the reference to the circle
+    let drawingManager = null; // Variable to store the DrawingManager instance
+    
     function initMap() {
         const mapOptions = {
-          zoom: 20,
+            zoom: 20,
         };
-      
+    
+        // Create the map
+        const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    
         // Get user's geolocation
         navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            const userLocation = { lat: latitude, lng: longitude };
-            
-            // Set user's location as the center of the map
-            mapOptions.center = userLocation;
-      
-            // Create the map
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
-      
-            // Initialize DrawingManager
-            drawingManager = new google.maps.drawing.DrawingManager({
-              drawingMode: google.maps.drawing.OverlayType.MARKER,
-              drawingControl: true,
-              drawingControlOptions: {
-                position: google.maps.ControlPosition.TOP_CENTER,
-                drawingModes: [
-                  google.maps.drawing.OverlayType.MARKER,
-                  google.maps.drawing.OverlayType.RECTANGLE,
-                  google.maps.drawing.OverlayType.CIRCLE,
-                ],
-              },
-              markerOptions: {
-                icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-              },
-              circleOptions: {
-                fillColor: "#ffff00",
-                fillOpacity: 1,
-                strokeWeight: 5,
-                clickable: false,
-                editable: true,
-                zIndex: 1,
-              },
-            });
-      
-            // Set the map for the DrawingManager
-            drawingManager.setMap(map);
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                userLocation = { lat: latitude, lng: longitude }; // Store the user's initial location
     
-            yum = new google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-                var radius = circle.getRadius();
-                console.log(radius)
-              });
-              
-              eh = new google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-                if (event.type == 'circle') {
-                  var radius = event.overlay.getRadius();
-                  console.log(radius)
-                }
-              });
-          },
-          (error) => {
-            console.error("Error getting user's location:", error);
-          }
+                // Set user's location as the center of the map
+                map.setCenter(userLocation);
+    
+                // Initialize DrawingManager
+                drawingManager = new google.maps.drawing.DrawingManager({
+                    drawingMode: google.maps.drawing.OverlayType.MARKER,
+                    drawingControl: true,
+                    drawingControlOptions: {
+                        position: google.maps.ControlPosition.TOP_CENTER,
+                        drawingModes: [
+                            google.maps.drawing.OverlayType.CIRCLE,
+                        ],
+                    },
+                    markerOptions: {
+                        icon: "https://maps.google.com/mapfiles/ms/micons/red-dot.png", // Red marker icon for user
+                    },
+                    circleOptions: {
+                        fillColor: "#ffff00",
+                        fillOpacity: 0.3, // Reduced opacity for better visibility
+                        strokeWeight: 2,
+                        clickable: false,
+                        editable: true,
+                        zIndex: 1,
+                    },
+                });
+    
+                // Set the map for the DrawingManager
+                drawingManager.setMap(map);
+    
+                // Event listener for when the user draws a circle
+                google.maps.event.addListener(drawingManager, 'circlecomplete', function (circleOverlay) {
+                    circle = circleOverlay; // Store the reference to the circle
+                    checkIfInsideCircle(); // Check if user is inside the circle
+                });
+    
+                // Continuously update user's location every 5 seconds
+                setInterval(() => {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        const { latitude, longitude } = position.coords;
+                        const newUserLocation = { lat: latitude, lng: longitude };
+                        updateUserMarker(newUserLocation);
+                        map.setCenter(newUserLocation); // Update the map center to user's new location
+                    });
+                }, 5000); // Update every 5 seconds
+            },
+            (error) => {
+                console.error("Error getting user's location:", error);
+            }
         );
     
-      }
+        // Function to check if the user is inside the circle
+        function checkIfInsideCircle() {
+            const userLatLng = new google.maps.LatLng(userLocation.lat, userLocation.lng);
+            const circleCenter = circle.getCenter();
+            const circleRadius = circle.getRadius();
+    
+            const distanceBetweenUserAndCenter = google.maps.geometry.spherical.computeDistanceBetween(userLatLng, circleCenter);
+    
+            if (distanceBetweenUserAndCenter <= circleRadius) {
+                console.log("User is inside the circle boundary.");
+            } else {
+                alert("You are OUTSIDE of a safe zone. Message has been sent to your caregiver!");
+            }
+        }
+    
+        // Function to update the user marker
+        function updateUserMarker(location) {
+            if (!userMarker) {
+                userMarker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    icon: {
+                        url: "https://maps.google.com/mapfiles/ms/micons/red-dot.png", // Red pin icon for user
+                    },
+                });
+            } else {
+                userMarker.setPosition(location);
+            }
+        }
+    }
+
     document.getElementById('uber').addEventListener('click', function() {
             // Make a request to Uber Ride Request API
             // Replace the placeholder values with your actual Uber Ride Request API credentials and parameters
