@@ -8,6 +8,7 @@
                 <script src="app.js"></script>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKhhhkPRu64XX3eqPhpHYkk7LqtavA6Qw&libraries=drawing&callback=initMap"></script>
                 <h3 class="section-subheading text-muted">Record a short voice memo about your day! It can include anything that happened today that you might want to remember. <br>For example, what time did you eat lunch? Where did you go today? Who did you meet?<br><br>**In the future, we would like to add functionality that generates a quiz based on the recorded voice memos. Then, when a user has consistently been getting questions wrong, it can serve as an indication that their memory is deteriorating.</h3>
+                <button id="uber" class="btn btn-primary">Order Uber</button>
             </div>
         </div>
     </div>
@@ -77,5 +78,26 @@
         );
     
       }
+    document.getElementById('uber').addEventListener('click', function() {
+            // Make a request to Uber Ride Request API
+            // Replace the placeholder values with your actual Uber Ride Request API credentials and parameters
+            var clientId = 'YOUR_CLIENT_ID';
+            var serverToken = 'YOUR_SERVER_TOKEN';
+            var pickupLat = 'PICKUP_LATITUDE';
+            var pickupLng = 'PICKUP_LONGITUDE';
+            var dropoffLat = 'DROPOFF_LATITUDE';
+            var dropoffLng = 'DROPOFF_LONGITUDE';
+
+            // Construct the URL for Uber's Ride Request API
+            var url = 'https://m.uber.com/ul/?client_id=' + clientId +
+                      '&action=setPickup&pickup[latitude]=' + pickupLat +
+                      '&pickup[longitude]=' + pickupLng +
+                      '&dropoff[latitude]=' + dropoffLat +
+                      '&dropoff[longitude]=' + dropoffLng +
+                      '&product_id='; // You can specify a specific product ID if needed
+
+            // Open the URL in a new tab/window
+            window.open(url);
+    });
 </script>
 
