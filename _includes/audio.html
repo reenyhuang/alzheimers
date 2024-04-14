@@ -1,17 +1,17 @@
 <!-- Audio Recorder Section -->
-<section id="audio">
+<section id="audio"> <!-- This section uses the tag #audio to refer to the audio recording part of the HTML page -->
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Audio Recorder</h2>
                 <br>
-                <button id="recordButton" class="btn btn-primary">Start Recording</button>
-                <button id="saveButton" class="btn btn-primary" style="display:none;">Save Recording</button>
+                <button id="recordButton" class="btn btn-primary">Start Recording</button> <!-- Uses the btn-primary class to maintain the same style in the buttons used throughout the page -->
+                <button id="saveButton" class="btn btn-primary" style="display:none;">Save Recording</button> 
                 <h3 class="section-subheading text-muted">Record a short voice memo about your day! It can include anything that happened today that you might want to remember. <br>For example, what time did you eat lunch? Where did you go today? Who did you meet?<br><br>**In the future, we would like to add functionality that generates a quiz based on the recorded voice memos. Then, when a user has consistently been getting questions wrong, it can serve as an indication that their memory is deteriorating.</h3>
                 <br>
-                <audio controls id="audioPlayback" style="display:none; margin: 0, auto;"></audio>
-                <a href="https://forms.gle/8Z8Ta7FXgesjSknc8" target="_blank" rel="noopener noreferrer">
-                    <button id="quizButton" class="btn btn-primary">Take Quiz</button>
+                <audio controls id="audioPlayback" style="display:block; margin: 0, auto;"></audio> <!-- Displays a box to play back the recording created-->
+                <a href="https://forms.gle/8Z8Ta7FXgesjSknc8" target="_blank" rel="noopener noreferrer"> <!-- Links to a quiz about facts from the user's day to assess memory loss -->
+                    <button id="quizButton" class="btn btn-primary">Take Quiz</button> 
                 </a>
             </div>
         </div>
@@ -19,15 +19,21 @@
 </section>
 
 <script>
+    
+    // Variables to store recording-related information
     let mediaRecorder;
     let chunks = [];
+
+    //Get references to HTML elements for the recording buttons
     const recordButton = document.getElementById('recordButton');
     const saveButton = document.getElementById('saveButton');
     const audioPlayback = document.getElementById('audioPlayback');
 
+    //Checks for user clicks on the recording button and save button
     recordButton.addEventListener('click', toggleRecording);
     saveButton.addEventListener('click', saveRecording);
 
+    //starts recording if not previously recording or stops recording if previously recording
     async function toggleRecording() {
         if (!mediaRecorder || mediaRecorder.state === 'inactive') {
             startRecording();
@@ -36,27 +42,29 @@
         }
     }
 
+    //starts recording from the user's device
     async function startRecording() {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.addEventListener('dataavailable', event => {
-                chunks.push(event.data);
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); //requests access to microphone
+            mediaRecorder = new MediaRecorder(stream); 
+            mediaRecorder.addEventListener('dataavailable', event => { // Waits until there is microphone data available to collect
+                chunks.push(event.data); //captures chunks of audio data
             });
-            mediaRecorder.addEventListener('stop', () => {
-                const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-                const audioURL = URL.createObjectURL(blob);
-                audioPlayback.src = audioURL;
-                audioPlayback.style.display = 'block';
-                saveButton.style.display = 'inline-block';
+            mediaRecorder.addEventListener('stop', () => { //waits until the recording should stop
+                const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' }); //creates a Blob of the audio data
+                const audioURL = URL.createObjectURL(blob); //creates a URL for the Blob
+                audioPlayback.src = audioURL; 
+                audioPlayback.style.display = 'block'; //makes the audio playback box visible
+                saveButton.style.display = 'inline-block'; //makes the save button visible
             });
-            mediaRecorder.start();
+            mediaRecorder.start(); //starts recording
             recordButton.textContent = 'Stop Recording';
         } catch (error) {
             console.error('Error starting recording:', error);
         }
     }
 
+    //function to stop recording
     function stopRecording() {
         if (mediaRecorder.state !== 'inactive') {
             mediaRecorder.stop();
@@ -64,15 +72,16 @@
         }
     }
 
+    //function to save the recording
     function saveRecording() {
         const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = 'recording.ogg';
+        a.download = 'recording.ogg'; //sets the download name of the audio file to "recording.ogg"
         document.body.appendChild(a);
-        a.click();
+        a.click(); //simulates a click on the anchor element to trigger the download
         window.URL.revokeObjectURL(url);
     }
 </script>
