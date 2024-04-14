@@ -285,8 +285,6 @@ fieldset[disabled] .btn-xl.active {
 
 header {
     text-align: center;
-    -webkit-text-stroke: 2px #ffffff;
-    text-stroke: 2px #ffffff;
     color: #000000;
     background-attachment: scroll;
     background-image: url('{{ site.baseurl }}/img/header-bg.jpg');
@@ -301,9 +299,6 @@ header {
 header .intro-text {
     padding-top: 100px;
     padding-bottom: 50px;
-    
-    -webkit-text-stroke: 2px #ffffff;
-    text-stroke: 2px #ffffff;
 }
 
 header .intro-text .intro-lead-in {
@@ -312,9 +307,6 @@ header .intro-text .intro-lead-in {
     font-size: 22px;
     font-style: italic;
     line-height: 22px;
-    
-    -webkit-text-stroke: 2px #ffffff;
-    text-stroke: 2px #ffffff;
 }
 
 header .intro-text .intro-heading {
@@ -324,9 +316,7 @@ header .intro-text .intro-heading {
     font-size: 50px;
     font-weight: 700;
     line-height: 50px;
-    
-    -webkit-text-stroke: 2px #ffffff;
-    text-stroke: 2px #ffffff;
+
 }
 
 @media(min-width:768px) {
@@ -334,8 +324,6 @@ header .intro-text .intro-heading {
         padding-top: 300px;
         padding-bottom: 200px;
         
-        -webkit-text-stroke: 2px #ffffff;
-        text-stroke: 2px #ffffff;
     }
 
     header .intro-text .intro-lead-in {
