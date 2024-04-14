@@ -335,8 +335,8 @@ header .intro-text .intro-heading {
         font-style: italic;
         line-height: 40px;
         
-        -webkit-text-stroke: 2px #ffffff;
-        text-stroke: 2px #ffffff;
+        -webkit-text-stroke: 1px #ffffff;
+        text-stroke: 1px #ffffff;
     }
 
     header .intro-text .intro-heading {
